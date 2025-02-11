@@ -1,0 +1,12 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+}
+
+.list-menu {
+  list-style-type: circle;
+}
+
+.list-menu .list-item {
+  color: red;
+}
