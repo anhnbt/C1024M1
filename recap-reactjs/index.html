@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React First App</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <!-- <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul> -->
+  <!-- <label for="name">Tên:</label>
+  <input type="text" name="name" id="name" placeholder="Nhập tên của bạn">
+  <img src="https://unsplash.it/300" alt="Image"> -->
+
+  <script type="text/babel">
+    // React Element
+    /*
+     *React.createElement(
+      type: h1, div, p, span,ul, ....,
+      props: Properties (Thuộc tính), nó là đối tượng {}, src, width, height, href,...class => className
+      children: Content hiển thị ra, có thể chứa 1 hoặc nhiều children.
+     )
+     */
+    // const element = React.createElement("h1", { className: "heading" }, "Hello World!");
+    // const listElements = React.createElement(
+    //   "ul",
+    //   null,
+    //   React.createElement("li", null, "HTML"),
+    //   React.createElement("li", null, "CSS"),
+    //   React.createElement("li", null, "JavaScript"),
+    // )
+
+    // JSX
+    // const name = 'Minh Vũ';
+    // const element = <h1 className="heading">Hello {name}!</h1>;
+    // const listElements = (
+    //   <ul>
+    //     <li>HTML</li>
+    //     <li>CSS</li>
+    //     <li>JavaScript</li>
+    //   </ul>
+    // );
+    // // Function Component, Class Component (class ES6)...
+    // // Tên Component phải viết hoa chữ cái đầu (PascalCase)
+    // class Welcome extends React.Component {
+
+    //   render() {
+    //     // Destructuring (Tách đối tượng hoặc tách mảng)
+    //     console.log(typeof this.props);
+    //     console.log(this.props);
+    //     const { name, age, que } = this.props;
+    //     return (
+    //       // Shorthand của <React.Fragment>, empty element
+    //       // Root element
+    //       <div>
+    //         <h1>Hello {name}!</h1>
+    //         <p>Tuổi: {age}, Quê: {que}</p>
+    //         <hr />
+    //         <img src="https://unsplash.it/300" alt="" />
+    //       </div>
+    //     );
+    //   }
+    // }
+    // const students = [
+    //   { id: 1, name: 'Vũ', age: 20 },
+    //   { id: 2, name: 'Minh', age: 19 }
+    // ]
+
+    // Function Component (JavaScript thuần - cú pháp cũ)
+    // JavaScript ES6 - Hàm mũi tên
+    // const StudentItem = ({ id, name, age }) => {
+    //   return (
+    //     <tr>
+    //       <td>{id}</td>
+    //       <td>{name}</td>
+    //       <td>{age}</td>
+    //     </tr>
+    //   );
+    // }
+
+    // Class Component
+    // class StudentList extends React.Component {
+    //   render() {
+    //     console.log(this.props);
+    //     return (
+    //       <div>
+    //         <table border="1">
+    //           <thead>
+    //             <tr>
+    //               <th>ID</th>
+    //               <th>Name</th>
+    //               <th>Age</th>
+    //             </tr>
+    //           </thead>
+    //           <tbody>
+    //             {this.props.data.map((item, index) => (
+    //               <StudentItem id={item.id} name={item.name} age={item.age} key={index} />
+    //             ))}
+    //           </tbody>
+    //         </table>
+
+    //       </div>
+    //     )
+    //   }
+    // }
+
+    class ShoppingCart extends React.Component {
+
+      constructor(props) {
+        super(props);
+        this.state = {
+          products: ['Sản phẩm 1'],
+          product: ''
+        }
+
+        // Ràng buộc this
+        this.handleChange = this.handleChange.bind(this);
+      }
+
+      handleChange(event) {
+        // Cách 1: truyền cho nó 1 đối tượng {}
+        this.setState({ product: event.target.value });
+        // lưu ý: cập nhật state là bất đồng bộ
+        // Không cập nhật state trực tiếp this.state.product = event.target.value (Nó không gọi lại hàm render() để cập nhật UI)
+      }
+
+      // Arrow function
+      handleSubmit = (event) => {
+        event.preventDefault();
+        if (!this.state.product) return;
+        // spread operator => https://www.w3schools.com/react/react_es6_spread.asp
+        // Có 2 cách để cập nhật state,
+        // Cách 2: truyền cho nó 1 hàm callback với tham số là state cũ
+        // (prevState) => {}
+        this.setState((prevState) => ({
+          products: [...prevState.products, this.state.product],
+          product: ''
+        }));
+      }
+
+      // render có điều kiện
+      render() {
+        // Toán tử 3 ngôi (Ternary Operator)
+        return (
+          <>
+            <h1>Giỏ hàng</h1>
+            {this.state.products.length === 0 ? <p>Không có dữ liệu</p> :
+              (
+                <ul>
+                  {this.state.products.map((product, index) => (
+                    <li key={index}>{product}</li>
+                  ))}
+                </ul>
+              )}
+            <form action="#" onSubmit={this.handleSubmit}>
+              <label htmlFor="productName">Tên sản phẩm:</label>
+              <input type="text" name="productName" id="productName" value={this.state.product} onChange={this.handleChange} />
+              <button type="submit">Thêm sản phẩm</button>
+            </form>
+          </>
+        )
+      }
+    }
+
+    ReactDOM.render(<ShoppingCart />, document.getElementById("root"));
+  </script>
+</body>
+
+</html>
