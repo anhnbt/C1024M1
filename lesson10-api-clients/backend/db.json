@@ -1,0 +1,17 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "iPhone 11 Pro Max",
+      "price": 1000,
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "iPhone 16 Pro",
+      "price": 1500,
+      "categoryId": 1
+    }
+  ],
+  "categories": [{ "id": 1, "name": "Apple" }]
+}
