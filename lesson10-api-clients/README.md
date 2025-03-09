@@ -12,10 +12,20 @@ Dự án được chia thành 2 thư mục:
 ## Cài đặt
 ### Backend
 #### Cài đặt json-server
+
+Cài đặt toàn cục (nếu chưa có json-server):
+
 ```sh
 cd backend
-npm install json-server
+npm install -g json-server
 ```
+
+Hoặc cài đặt trong dự án:
+
+```sh
+npm install json-server --save-dev
+```
+
 #### Chạy json-server
 ```sh
 json-server --watch db.json --port 3004
