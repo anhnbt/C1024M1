@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router';
+import { toast } from 'react-toastify';
 
 const UserForm = () => {
   const [name, setName] = useState('');
@@ -22,11 +23,13 @@ const UserForm = () => {
     e.preventDefault();
     if (id) {
       await axios.put(`http://localhost:3004/users/${id}`, { name });
-      alert('Cập nhật người dùng thành công!');
+      toast.success('Cập nhật người dùng thành công!');
+      navigate('/');
     } else {
       await axios.post('http://localhost:3004/users', { name });
-      alert('Thêm mới người dùng thành công!');
+      toast.success('Thêm mới người dùng thành công!');
       setName('');
+      navigate('/');
     }
   };
 
